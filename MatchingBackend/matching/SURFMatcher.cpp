@@ -162,7 +162,7 @@ string SURFMatcher::MatchAgainstLibrary(const char *queryImageName,
 	if (indexBestMatch >= 0 && indexBestMatch < referenceData_.size() && bestPercentage >= params_.match_threshold) {
 		logger_->Log(INFO, "%s was best matched with %s\n",
 			queryImageName, referenceData_[indexBestMatch]->name.c_str());
-		return referenceData_[indexBestMatch]->description;
+		return referenceData_[indexBestMatch]->name;
 	} 
 
 	logger_->Log(INFO, "Unable to find a match for %s\n", queryImageName);

@@ -10,8 +10,8 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>160</width>
-			<height>120</height>
+			<width>400</width>
+			<height>300</height>
 		</image>
 		
 	</query>
@@ -26,8 +26,8 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>160</width>
-			<height>120</height>
+			<width>400</width>
+			<height>300</height>
 		</image>
 		
 		<!-- double for percentage -->

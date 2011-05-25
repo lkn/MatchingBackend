@@ -26,6 +26,29 @@ SURFMatcher *g_matcher = NULL;
 
 QueryParams g_queryParams;
 
+// TODO: we want to move away from using the name
+// data sent: name#id#make#model#date#shutter#focal
+// TODO: send GPS
+string getImageDescriptionForClient(string matchName) {
+	string halfQ = "SELECT id, camera_make, camera_model, datetime, shutter_speed, focal_length FROM imagedata where name = ";
+	vector<DbRow> rows = database->query((halfQ + "\"" + matchName + "\"").c_str());
+	DbRow row = rows.at(0);
+	string dataToSend = matchName;
+	for (DbRow::const_iterator it = row.begin(); it != row.end(); ++it) {
+		dataToSend.append("#");  // delimiter
+		dataToSend.append(*it);
+	}
+	return dataToSend;
+}
+
+void readPathTuplesFromDb(vector<pair<string, string> >& pathTuples) {
+	vector<DbRow> rows = database->query("SELECT name, path FROM imagedata");
+	for (vector<DbRow>::iterator it = rows.begin(); it != rows.end(); ++it) {
+		DbRow row = *it;
+		pathTuples.push_back(make_pair(row.at(0), row.at(1)));
+	}
+}
+
 // Deal with client
 DWORD WINAPI ClientLoop(LPVOID sockette) {
 	Sockette * clientSocket = (Sockette *) sockette;
@@ -36,9 +59,11 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 	CvSURFParams params = cvSURFParams(g_queryParams.hessian_threshold, g_queryParams.extended_parameter);
 
 	int c = 0;
+	
+	string dataToSend;
 	while (true) {
 		char *dataReceived = NULL;
-		string dataToSend;
+		string matchName;
 		// TODO: get rid of memory leaks
 		if (clientSocket->Listen(&dataReceived)) {
 			// Converting jpg to iplimage... 
@@ -64,10 +89,11 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 			printf("Query Descriptors %d\nQuery Extraction Time = %gm\n",
 				queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
 			
-			dataToSend = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
-			if (dataToSend.empty()) {
+			matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
+			if (matchName.empty()) {
 				std::cout << "NO MATCH!\n";
 			} else {
+				dataToSend = getImageDescriptionForClient(matchName);
 				clientSocket->Send(dataToSend);
 			}
 		} else {
@@ -126,13 +152,6 @@ bool parseSettingsXml(const string& settingsXmlPath, string& logName, QueryParam
 	return true;
 }
 
-void readPathTuplesFromDb(vector<pair<string, string> >& pathTuples) {
-	vector<DbRow> rows = database->query("SELECT name, path FROM imagedata");
-	for (vector<DbRow>::iterator it = rows.begin(); it != rows.end(); ++it) {
-		DbRow row = *it;
-		pathTuples.push_back(make_pair(row.at(0), row.at(1)));
-	}
-}
 
 int _tmain(int argc, char *argv[]) {
 /*

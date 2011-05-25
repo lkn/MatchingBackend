@@ -1,46 +1,9 @@
-﻿Build started 5/24/2011 11:54:24 PM.
-     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 7 (build target(s)).
+﻿Build started 5/25/2011 12:42:03 AM.
+     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 12 (build target(s)).
        Skipping target "IsProjectFileNewer" because all output files are up-to-date with respect to the input files.
      1>_PrepareForBuild:
          Touching "Release\lastbuild.timestamp".
        ClCompile:
-         match_image.cpp
-     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-         SURFMatcher.cpp
-     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-     1>matching\SURFMatcher.cpp(141): warning C4018: '<' : signed/unsigned mismatch
-     1>matching\SURFMatcher.cpp(162): warning C4018: '<' : signed/unsigned mismatch
-     1>matching\SURFMatcher.cpp(324): warning C4018: '<' : signed/unsigned mismatch
-     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/flann_base.hpp(114): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-                 D:\Libraries\OpenCV2.2\include\opencv2/flann/flann_base.hpp(142) : see reference to function template instantiation 'cvflann::NNIndex<ELEM_TYPE> *cvflann::load_saved_index<float>(const cvflann::Matrix<T> &,const std::string &)' being compiled
-                 with
-                 [
-                     ELEM_TYPE=float,
-                     T=float
-                 ]
-                 D:\Libraries\OpenCV2.2\include\opencv2/flann/flann_base.hpp(137) : while compiling class template member function 'cvflann::Index<T>::Index(const cvflann::Matrix<T> &,const cvflann::IndexParams &)'
-                 with
-                 [
-                     T=float
-                 ]
-                 D:\Libraries\OpenCV2.2\include\opencv2/flann/flann.hpp(109) : see reference to class template instantiation 'cvflann::Index<T>' being compiled
-                 with
-                 [
-                     T=float
-                 ]
-                 D:\Libraries\OpenCV2.2\include\opencv2/flann/flann.hpp(104) : while compiling class template member function 'cv::flann::Index_<T>::Index_(const cv::Mat &,const cvflann::IndexParams &)'
-                 with
-                 [
-                     T=float
-                 ]
-                 matching\SURFMatcher.cpp(208) : see reference to class template instantiation 'cv::flann::Index_<T>' being compiled
-                 with
-                 [
-                     T=float
-                 ]
          server.cpp
      1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
@@ -55,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:50.01
+Time Elapsed 00:00:28.09
