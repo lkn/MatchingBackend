@@ -13,6 +13,7 @@
 
 SURFMatcher::SURFMatcher(Logger *logger, const SURFMatcherParams& params) : logger_(logger) {
 	memcpy(&params_, &params, sizeof(SURFMatcherParams));
+	storage_ = cvCreateMemStorage(0);
 }
 
 SURFMatcher::~SURFMatcher() {
@@ -20,6 +21,28 @@ SURFMatcher::~SURFMatcher() {
 	for (it = referenceData_.begin(); it != referenceData_.end(); ++it) {
 		cvReleaseImage(&((*it)->image));
 		delete *it;
+	}
+	if (storage_ != NULL) {
+		cvReleaseMemStorage(&storage_);
+	}
+}
+
+void SURFMatcher::Extract() {
+	// extract data for SURF
+	CvSURFParams params = cvSURFParams(params_.hessian_threshold, params_.extended_parameter);
+
+	vector<ImageData *>::const_iterator refIt;
+	CvSeq *keyPoint = 0, *descriptor = 0;
+	for (refIt = referenceData_.begin(); refIt != referenceData_.end(); ++refIt) {
+		cvExtractSURF((*refIt)->image, 0, &keyPoint, &descriptor, storage_, params);
+		refKD_.push_back(make_pair(keyPoint, descriptor));
+		logger_->Log(INFO, "\tExtracted %s with %d keypoints and %d descriptors", 
+			(*refIt)->name.c_str(), keyPoint->total, descriptor->total);
+	}
+
+	if (refKD_.size() != referenceData_.size()) {
+		logger_->Log(WARNING, "Only extracted SURF features from %d / %d images!\n",
+			refKD_.size(), referenceData_.size());
 	}
 }
 
@@ -65,23 +88,7 @@ int SURFMatcher::BuildFromXml(std::string fileName) {
 	}
 
 	logger_->Log(INFO, "Finished loading images, now extracting data");
-	// extract data for SURF
-	CvMemStorage *storage = cvCreateMemStorage(0);  // TODO: move this out
-	CvSURFParams params = cvSURFParams(params_.hessian_threshold, params_.extended_parameter);
-
-	vector<ImageData *>::const_iterator refIt;
-	CvSeq *keyPoint = 0, *descriptor = 0;
-	for (refIt = referenceData_.begin(); refIt != referenceData_.end(); ++refIt) {
-		cvExtractSURF((*refIt)->image, 0, &keyPoint, &descriptor, storage, params);
-		refKD_.push_back(make_pair(keyPoint, descriptor));
-		logger_->Log(INFO, "\tExtracted %s with %d keypoints and %d descriptors", 
-			(*refIt)->name.c_str(), keyPoint->total, descriptor->total);
-	}
-
-	if (refKD_.size() != referenceData_.size()) {
-		logger_->Log(WARNING, "Only extracted SURF features from %d / %d images!\n",
-			refKD_.size(), referenceData_.size());
-	}
+	Extract();
 
 	logger_->Log(INFO, "Build Time for %d Images = %gm\n",
 		refKD_.size(), ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
@@ -90,11 +97,34 @@ int SURFMatcher::BuildFromXml(std::string fileName) {
 }
 
 int SURFMatcher::BuildFromList(vector<pair<string, string> > pathTuples) {
+	logger_->Log(INFO, "Building SURF reference library from list");
+	double tt = (double) -cvGetTickCount();
+
 	vector<pair<string, string> >::const_iterator it;
 	for (it = pathTuples.begin(); it != pathTuples.end(); ++it) {
-		cout << it->first << " " << it->second << endl;
+		ImageData *data = new ImageData();
+		data->name = it->first;
+		data->path = it->second;
+
+		logger_->Log(INFO, "Loading image %s...", data->name.c_str());
+		IplImage *tmp = cvLoadImage((data->path).c_str(), CV_LOAD_IMAGE_GRAYSCALE); 
+		
+		if (tmp == NULL) {
+			logger_->Log(ERR, "Unable to cvLoadImage for %s", data->name.c_str());
+		} else {
+			// resize the image
+			data->image = resizeImage(tmp, params_.image_width, params_.image_height, true);
+			referenceData_.push_back(data);
+			cvReleaseImage(&tmp);
+		}
 	}
-	return 0;
+	logger_->Log(INFO, "Finished loading images, now extracting data");
+	Extract();
+
+	logger_->Log(INFO, "Build Time for %d Images = %gm\n",
+		refKD_.size(), ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
+	
+	return referenceData_.size();
 }
 
 // return null if no match, otherwise return image description to display

@@ -127,10 +127,10 @@ bool parseSettingsXml(const string& settingsXmlPath, string& logName, QueryParam
 }
 
 void readPathTuplesFromDb(vector<pair<string, string> >& pathTuples) {
-	vector<vector<string> > rows = database->query("SELECT name, path FROM imagedata");
-	for (vector<vector<string> >::iterator it = rows.begin(); it != rows.end(); ++it) {
-		vector<string> row = *it;
-		cout << row.at(0) << " " << row.at(1) << endl;
+	vector<DbRow> rows = database->query("SELECT name, path FROM imagedata");
+	for (vector<DbRow>::iterator it = rows.begin(); it != rows.end(); ++it) {
+		DbRow row = *it;
+		pathTuples.push_back(make_pair(row.at(0), row.at(1)));
 	}
 }
 

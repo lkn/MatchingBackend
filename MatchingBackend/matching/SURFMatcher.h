@@ -86,6 +86,7 @@ public:
 
 protected:
 	double CompareSURFDescriptors(const float *d1, const float *d2, double best, int length) const;
+	void Extract();
 
 private:
 	std::vector<SURFFeatures_t> refKD_;  // keypoints + descriptors
@@ -95,6 +96,7 @@ private:
 
 	Logger *logger_;
 	SURFMatcherParams params_;
+	CvMemStorage *storage_;
 };
 
 #endif

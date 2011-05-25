@@ -1,15 +1,18 @@
-﻿Build started 5/24/2011 11:28:35 PM.
-     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 5 (build target(s)).
+﻿Build started 5/24/2011 11:54:24 PM.
+     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 7 (build target(s)).
+       Skipping target "IsProjectFileNewer" because all output files are up-to-date with respect to the input files.
+     1>_PrepareForBuild:
          Touching "Release\lastbuild.timestamp".
-     1>ClCompile:
-         Database.cpp
-         StatsTable.cpp
+       ClCompile:
+         match_image.cpp
+     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
          SURFMatcher.cpp
      1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-     1>matching\SURFMatcher.cpp(111): warning C4018: '<' : signed/unsigned mismatch
-     1>matching\SURFMatcher.cpp(132): warning C4018: '<' : signed/unsigned mismatch
-     1>matching\SURFMatcher.cpp(294): warning C4018: '<' : signed/unsigned mismatch
+     1>matching\SURFMatcher.cpp(141): warning C4018: '<' : signed/unsigned mismatch
+     1>matching\SURFMatcher.cpp(162): warning C4018: '<' : signed/unsigned mismatch
+     1>matching\SURFMatcher.cpp(324): warning C4018: '<' : signed/unsigned mismatch
      1>D:\Libraries\OpenCV2.2\include\opencv2/flann/flann_base.hpp(114): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
                  D:\Libraries\OpenCV2.2\include\opencv2/flann/flann_base.hpp(142) : see reference to function template instantiation 'cvflann::NNIndex<ELEM_TYPE> *cvflann::load_saved_index<float>(const cvflann::Matrix<T> &,const std::string &)' being compiled
@@ -33,33 +36,15 @@
                  [
                      T=float
                  ]
-                 matching\SURFMatcher.cpp(178) : see reference to class template instantiation 'cv::flann::Index_<T>' being compiled
+                 matching\SURFMatcher.cpp(208) : see reference to class template instantiation 'cv::flann::Index_<T>' being compiled
                  with
                  [
                      T=float
                  ]
-         match_image.cpp
-     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-         Sockette.cpp
          server.cpp
      1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-         stdafx.cpp
-         cv_helper.cpp
-         Logger.cpp
-     1>support\Logger.cpp(41): warning C4996: 'vsnprintf': This function or variable may be unsafe. Consider using vsnprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(347) : see declaration of 'vsnprintf'
-     1>support\Logger.cpp(49): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(364) : see declaration of 'sprintf'
-         util.cpp
-     1>support\util.cpp(35): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\time.inl(112) : see declaration of 'localtime'
-         tinystr.cpp
-         tinyxml.cpp
-         tinyxmlerror.cpp
-         tinyxmlparser.cpp
-         sqlite3.c
+         Skipping task because its outputs are up-to-date.
        Link:
          Generating code
          Finished generating code
@@ -70,4 +55,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:49.08
+Time Elapsed 00:00:50.01
