@@ -74,14 +74,13 @@ void Sockette::StartListening() {
 // to encode how many bytes we should expect to receive.
 // next byte is the type of request
 // Whoever sent in 'data' must deallocate it (this function allocates it)
-bool Sockette::Listen(char **data) {
+bool Sockette::Listen(unsigned char *cmd, char **data) {
 	std::cout << "Listening...." << std::endl;
-	unsigned char * tmp = (unsigned char *) calloc(10, sizeof(unsigned char));
+	unsigned char * tmp = (unsigned char *) calloc(3, sizeof(unsigned char));
 	if (tmp == NULL) std::cerr << "calloc returned NULL";
 
 	// get expected size of data
 	short expectedSize = 0;
-	unsigned char command;
 	while (true) {
 		int n = recv(handle_, (char *) tmp, 3, 0);
 		std::cout << "Received data from client!" << std::endl;
@@ -101,12 +100,8 @@ bool Sockette::Listen(char **data) {
 			return false;
 		}
 
-		command = tmp[2];
-		switch (command) {
-		default:
-			std::cout << "WE GOT A COMMAND!!! " << tmp[2];
-		}
-
+		*cmd = tmp[2];
+		std::cout << "cmd = " << *cmd << std::endl;
 		break;
 	}
 

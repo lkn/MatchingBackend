@@ -13,7 +13,7 @@ public:
 	~Sockette();
 	
 	void StartListening();
-	bool Listen(char **data);
+	bool Listen(unsigned char *cmd, char **data);
 	bool Send(std::string data);
 
 	const SOCKET& handle() const { return handle_; }

@@ -17,7 +17,7 @@
 	</query>
 	
 	<!-- config is used by the python script to populate the database -->
-	<library path="database/ivl.db" config="data/kt_library/index.xml">
+	<library path="database/kt-min.db" config="data/kt_library/index-min.xml">
 		<!-- parameters to cvSurfParam -->
 		<surf>
 			<hessian_threshold>2000</hessian_threshold>

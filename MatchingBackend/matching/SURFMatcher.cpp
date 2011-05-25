@@ -166,8 +166,7 @@ string SURFMatcher::MatchAgainstLibrary(const char *queryImageName,
 	} 
 
 	logger_->Log(INFO, "Unable to find a match for %s\n", queryImageName);
-	string str;  // TODO: so ghetto...
-	return str;
+	return "-1";
 }
 
 // object = query

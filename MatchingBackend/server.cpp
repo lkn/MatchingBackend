@@ -27,10 +27,10 @@ SURFMatcher *g_matcher = NULL;
 QueryParams g_queryParams;
 
 // TODO: we want to move away from using the name
-// data sent: name#id#make#model#date#shutter#focal
+// data sent: name#id#model#date#shutter#focal
 // TODO: send GPS
 string getImageDescriptionForClient(string matchName) {
-	string halfQ = "SELECT id, camera_make, camera_model, datetime, shutter_speed, focal_length FROM imagedata where name = ";
+	string halfQ = "SELECT id, camera_model, datetime, shutter_speed, focal_length FROM imagedata where name = ";
 	vector<DbRow> rows = database->query((halfQ + "\"" + matchName + "\"").c_str());
 	DbRow row = rows.at(0);
 	string dataToSend = matchName;
@@ -63,38 +63,51 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 	string dataToSend;
 	while (true) {
 		char *dataReceived = NULL;
+		unsigned char cmd;
 		string matchName;
 		// TODO: get rid of memory leaks
-		if (clientSocket->Listen(&dataReceived)) {
-			// Converting jpg to iplimage... 
-			CvMat cvmat = cvMat(g_queryParams.image_width, g_queryParams.image_height, CV_8UC3, (void *) dataReceived);
-			IplImage *frame = cvDecodeImage(&cvmat, 1);  // TODO: need to release?
-			
-			// actual image is in probably color (3 channels)
-			// but we need to use 1 channel to do surfmatching which uses grayscale
-			// images (1 channel)
-			IplImage *queryImage = cvCreateImage(cvSize(g_queryParams.image_width, g_queryParams.image_height), IPL_DEPTH_8U, 1);
-			cvCvtColor(frame, queryImage, CV_BGR2GRAY);
+		if (clientSocket->Listen(&cmd, &dataReceived)) {
+			std::cout << "Received command: " << cmd;
+			switch (cmd) {
+				case 'D':
+					{
+					// Converting jpg to iplimage... 
+					CvMat cvmat = cvMat(g_queryParams.image_width, g_queryParams.image_height, CV_8UC3, (void *) dataReceived);
+					IplImage *frame = cvDecodeImage(&cvmat, 1);  // TODO: need to release?
+					
+					// actual image is in probably color (3 channels)
+					// but we need to use 1 channel to do surfmatching which uses grayscale
+					// images (1 channel)
+					IplImage *queryImage = cvCreateImage(cvSize(g_queryParams.image_width, g_queryParams.image_height), IPL_DEPTH_8U, 1);
+					cvCvtColor(frame, queryImage, CV_BGR2GRAY);
 
-			struct tm timeinfo = Util::GetTimeInfo();
-			char queryName[128];
-			strftime(queryName, 128, "%m-%d-%y-%H-%M-%S.jpg", &timeinfo);
-			std::cout << "saving to file " << queryName << endl;
-			cvSaveImage(queryName, queryImage);
-			
-			//clientSocket->Send(queryName);
-			CvSeq *queryKeyPoints = 0, *queryDescriptors = 0;
-			double tt = (double) -cvGetTickCount();
-			cvExtractSURF(queryImage, 0, &queryKeyPoints, &queryDescriptors, storage, params);
-			printf("Query Descriptors %d\nQuery Extraction Time = %gm\n",
-				queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
-			
-			matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
-			if (matchName.empty()) {
-				std::cout << "NO MATCH!\n";
-			} else {
-				dataToSend = getImageDescriptionForClient(matchName);
-				clientSocket->Send(dataToSend);
+					struct tm timeinfo = Util::GetTimeInfo();
+					char queryName[128];
+					strftime(queryName, 128, "%m-%d-%y-%H-%M-%S.jpg", &timeinfo);
+					std::cout << "saving to file " << queryName << endl;
+					cvSaveImage(queryName, queryImage);
+					
+					//clientSocket->Send(queryName);
+					CvSeq *queryKeyPoints = 0, *queryDescriptors = 0;
+					double tt = (double) -cvGetTickCount();
+					cvExtractSURF(queryImage, 0, &queryKeyPoints, &queryDescriptors, storage, params);
+					printf("Query Descriptors %d\nQuery Extraction Time = %gm\n",
+						queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
+					
+					matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
+					dataToSend = getImageDescriptionForClient(matchName);
+					clientSocket->Send(dataToSend);
+					break;
+					}
+				case 'C':
+					std::cout << "TODO: comment" << std::endl;
+					break;
+				case 'M':
+					std::cout << "TODO: more details" << std::endl;
+					break;
+				default:
+					std::cout << "TODO: unknown command!" << std::endl;
+					break;
 			}
 		} else {
 			break;
