@@ -27,10 +27,10 @@ SURFMatcher *g_matcher = NULL;
 QueryParams g_queryParams;
 
 // TODO: we want to move away from using the name
-// data sent: name#id#model#date#shutter#focal
+// data sent: name#id#date#model#shutter#focal
 // TODO: send GPS
 string getImageDescriptionForClient(string matchName) {
-	string halfQ = "SELECT id, camera_model, datetime, shutter_speed, focal_length FROM imagedata where name = ";
+	string halfQ = "SELECT id, datetime, camera_model, shutter_speed, focal_length FROM imagedata where name = ";
 	vector<DbRow> rows = database->query((halfQ + "\"" + matchName + "\"").c_str());
 	DbRow row = rows.at(0);
 	string dataToSend = matchName;
@@ -95,7 +95,7 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 						queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
 					
 					matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
-					dataToSend = getImageDescriptionForClient(matchName);
+					dataToSend = matchName.compare("-1") == 0 ? matchName : getImageDescriptionForClient(matchName);
 					clientSocket->Send(dataToSend);
 					break;
 					}
