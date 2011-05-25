@@ -21,6 +21,7 @@ class DBHelper:
   def clear_tables(self):
     c = self.get_cursor()
     c.execute('DROP TABLE IF EXISTS imagedata')
+    c.execute('DROP TABLE IF EXISTS comment')
     self.commit()
     c.close()
     
@@ -37,9 +38,16 @@ class DBHelper:
                     shutter_speed TEXT, \
                     focal_length TEXT, \
                     gps_lat REAL, \
-                    gps_long REAL, \
-                    comment TEXT
+                    gps_long REAL \
                   );""")
+    c.execute("""CREATE TABLE comment ( \
+                    id INTEGER PRIMARY KEY, \
+                    image_id INTEGER, \
+                    commenter TEXT, \
+                    blurb TEXT, \
+                    FOREIGN KEY(image_id) REFERENCES imagedata(id) \
+                  );""")
+                    
     self.commit()
     c.close()
 

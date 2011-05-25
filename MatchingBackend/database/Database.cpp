@@ -34,7 +34,12 @@ vector<vector<string> > Database::query(const char* query) {
 			if (result == SQLITE_ROW) {
 				vector<string> values;
 				for (int col = 0; col < cols; col++)	{
-					values.push_back((char *) sqlite3_column_text(statement, col));
+					const unsigned char *text = sqlite3_column_text(statement, col);
+					if (text != NULL) {
+						values.push_back((char *) text);
+					} else {
+						values.push_back("");
+					}
 				}
 				results.push_back(values);
 			} else {

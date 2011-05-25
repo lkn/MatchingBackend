@@ -41,6 +41,50 @@ string getImageDescriptionForClient(string matchName) {
 	return dataToSend;
 }
 
+string getEverything(string matchName) {
+	string halfQ = "SELECT id, datetime, camera_model, shutter_speed, focal_length, description, gps_lat, gps_long FROM imagedata where name = ";
+	vector<DbRow> rows = database->query((halfQ + "\"" + matchName + "\"").c_str());
+	DbRow row = rows.at(0);
+	string dataToSend = matchName;
+	DbRow::const_iterator it = row.begin();
+	string imageId = *it;
+	for (it; it != row.end(); ++it) {
+		dataToSend.append("#");  // delimiter
+		dataToSend.append(*it);
+	}
+
+	// now get comments
+	string query = "SELECT commenter, blurb FROM comment WHERE image_id = " + imageId;
+	rows = database->query(query.c_str());
+	if (!rows.empty()) {
+		dataToSend.append("^");
+	}
+	for (vector<DbRow>::const_iterator rows_it = rows.begin(); rows_it != rows.end(); ) {
+		DbRow row = *rows_it;
+		dataToSend.append(row.at(0) + ":" + row.at(1));
+		++rows_it;
+
+		// gross I know. but hey, it's just a masters project :P
+		if (rows_it != rows.end()) {
+			dataToSend.append("#");
+		}
+	}
+	return dataToSend;
+}
+
+string getMoreDetailsForClient(string matchId) {
+	//string halfQ = "SELECT id, datetime, camera_model, shutter_speed, focal_length FROM imagedata where name = ";
+	//vector<DbRow> rows = database->query((halfQ + "\"" + matchName + "\"").c_str());
+	//DbRow row = rows.at(0);
+	//string dataToSend = matchName;
+	//for (DbRow::const_iterator it = row.begin(); it != row.end(); ++it) {
+	//	dataToSend.append("#");  // delimiter
+	//	dataToSend.append(*it);
+	//}
+	string dataToSend = "description#comment1^comment2^comment3#gps_lat^gps_long";
+	return dataToSend;
+}
+
 void readPathTuplesFromDb(vector<pair<string, string> >& pathTuples) {
 	vector<DbRow> rows = database->query("SELECT name, path FROM imagedata");
 	for (vector<DbRow>::iterator it = rows.begin(); it != rows.end(); ++it) {
@@ -59,7 +103,6 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 	CvSURFParams params = cvSURFParams(g_queryParams.hessian_threshold, g_queryParams.extended_parameter);
 
 	int c = 0;
-	
 	string dataToSend;
 	while (true) {
 		char *dataReceived = NULL;
@@ -95,15 +138,12 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 						queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
 					
 					matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
-					dataToSend = matchName.compare("-1") == 0 ? matchName : getImageDescriptionForClient(matchName);
+					dataToSend = matchName.compare("-1") == 0 ? matchName : getEverything(matchName);
 					clientSocket->Send(dataToSend);
 					break;
 					}
 				case 'C':
 					std::cout << "TODO: comment" << std::endl;
-					break;
-				case 'M':
-					std::cout << "TODO: more details" << std::endl;
 					break;
 				default:
 					std::cout << "TODO: unknown command!" << std::endl;
