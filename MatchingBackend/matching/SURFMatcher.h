@@ -33,7 +33,15 @@ typedef struct {
 	int extended_parameter;
 	int image_width;
 	int image_height;
+} QueryParams;
+
+typedef struct {
+	double hessian_threshold;
+	int extended_parameter;
+	int image_width;
+	int image_height;
 	double match_threshold;
+	string db_path;
 } SURFMatcherParams;
 
 class SURFMatcher {
@@ -41,7 +49,9 @@ public:
 	SURFMatcher(Logger *logger, const SURFMatcherParams& params);
 	~SURFMatcher();
 
-	int Build(std::string fileName);
+	int BuildFromXml(std::string fileName);
+	// list of (name, path)
+	int BuildFromList(vector<pair<string, string> > pathTuples);
 
 	// Finds matching keypoints and estimates an accuracy
 	double FindPairs(const CvSeq* objectKeypoints,

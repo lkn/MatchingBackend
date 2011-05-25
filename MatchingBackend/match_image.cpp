@@ -29,12 +29,6 @@ using namespace std;
 // TODO: change the fact that query images must be smaller than training image
 const string settingsFilename = "settings_match_image_exe.xml";
 
-typedef struct {
-	double hessian_threshold;
-	int extended_parameter;
-	int image_width;
-	int image_height;
-} QueryParams;
 
 bool readQuery(const string& queryImageName, IplImage **queryImage, int width, int height) {
     cout << "< Reading the images..." << endl;
@@ -121,7 +115,7 @@ bool readSettingsFile(const string& settingsFilename, string& logName, string& f
 	return true;
 }
 
-
+/*
 int _tmain(int argc, char** argv) {
 
 	SURFMatcherParams libraryParams;
@@ -140,7 +134,7 @@ int _tmain(int argc, char** argv) {
 	readQueryFilenames(fileWithQueryImages, queryImageFilenames);
 
 	SURFMatcher surfMatcher(&logger, libraryParams);
-	surfMatcher.Build(fileWithLibraryImages);
+	surfMatcher.BuildFromXml(fileWithLibraryImages);
 
 	CvMemStorage *storage = cvCreateMemStorage(0);
 	CvSURFParams params = cvSURFParams(queryParams.hessian_threshold, queryParams.extended_parameter);
@@ -160,12 +154,13 @@ int _tmain(int argc, char** argv) {
 
 		
 		string res = surfMatcher.MatchAgainstLibrary(it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		/*if (!res.empty()) {
-			surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		}*/
+		//if (!res.empty()) {
+		//	surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
+		//}
 
 		// TOADD
 		cvReleaseImage(&queryImage);
 	}
 	return 0;
 }
+*/

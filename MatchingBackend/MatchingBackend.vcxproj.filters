@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="database\Database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="matching\StatsTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,6 +53,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="database\Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="matching\StatsTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

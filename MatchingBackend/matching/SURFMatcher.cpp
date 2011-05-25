@@ -24,7 +24,7 @@ SURFMatcher::~SURFMatcher() {
 }
 
 // fileName contains list of images to build library with
-int SURFMatcher::Build(std::string fileName) {
+int SURFMatcher::BuildFromXml(std::string fileName) {
 	logger_->Log(INFO, "Building SURF reference library with %s...\n", fileName);
 	double tt = (double) -cvGetTickCount();
 
@@ -60,13 +60,13 @@ int SURFMatcher::Build(std::string fileName) {
 			// resize the image
 			data->image = resizeImage(tmp, params_.image_width, params_.image_height, true);
 			referenceData_.push_back(data);
-			cvReleaseImage(&tmp); // TODO: this may be bad?
+			cvReleaseImage(&tmp);
 		}
 	}
 
 	logger_->Log(INFO, "Finished loading images, now extracting data");
 	// extract data for SURF
-	CvMemStorage *storage = cvCreateMemStorage(0);
+	CvMemStorage *storage = cvCreateMemStorage(0);  // TODO: move this out
 	CvSURFParams params = cvSURFParams(params_.hessian_threshold, params_.extended_parameter);
 
 	vector<ImageData *>::const_iterator refIt;
@@ -87,6 +87,14 @@ int SURFMatcher::Build(std::string fileName) {
 		refKD_.size(), ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
 	
 	return referenceData_.size();
+}
+
+int SURFMatcher::BuildFromList(vector<pair<string, string> > pathTuples) {
+	vector<pair<string, string> >::const_iterator it;
+	for (it = pathTuples.begin(); it != pathTuples.end(); ++it) {
+		cout << it->first << " " << it->second << endl;
+	}
+	return 0;
 }
 
 // return null if no match, otherwise return image description to display

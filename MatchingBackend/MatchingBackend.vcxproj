@@ -10,6 +10,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="database\Database.h" />
     <ClInclude Include="matching\StatsTable.h" />
     <ClInclude Include="matching\SURFMatcher.h" />
     <ClInclude Include="network\Sockette.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="thirdparty\tinyxml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="database\Database.cpp" />
     <ClCompile Include="matching\StatsTable.cpp" />
     <ClCompile Include="matching\SURFMatcher.cpp" />
     <ClCompile Include="match_image.cpp" />

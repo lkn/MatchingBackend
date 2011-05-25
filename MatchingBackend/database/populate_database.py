@@ -82,7 +82,7 @@ def get_lib_xml_path(settings_xml_path):
   """
   exe_home = os.path.dirname(settings_xml_path) + '/'
   settings_xml = xml.parse(settings_xml_path)
-  lib_xml_path = settings_xml.find('library').get('path')
+  lib_xml_path = settings_xml.find('library').get('config')
   (lib_dir, xml_name) = os.path.split(lib_xml_path)
   return (exe_home, lib_dir + '/', xml_name)
 
@@ -92,7 +92,8 @@ def main(args):
   db_helper.clear_tables()
   db_helper.create_tables()
 
-  (exe_home, lib_xml_dir, lib_xml_name) = get_lib_xml_path('../settings.xml')
+  (exe_home, lib_xml_dir, lib_xml_name) = \
+      get_lib_xml_path('../settings_server.xml')
   db_helper.populate_from_xml(exe_home, lib_xml_dir, lib_xml_name)
 
 
