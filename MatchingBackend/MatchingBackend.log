@@ -1,10 +1,12 @@
-﻿Build started 5/25/2011 3:17:09 PM.
-     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 17 (build target(s)).
+﻿Build started 5/25/2011 4:41:16 PM.
+     1>Project "D:\Documents\UCSD\BSMS\SP11\Masters Project\MatchingBackend\MatchingBackend\MatchingBackend.vcxproj" on node 21 (build target(s)).
        Skipping target "IsProjectFileNewer" because all output files are up-to-date with respect to the input files.
      1>_PrepareForBuild:
          Touching "Release\lastbuild.timestamp".
        ClCompile:
-         Database.cpp
+         server.cpp
+     1>D:\Libraries\OpenCV2.2\include\opencv2/flann/logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
          Skipping task because its outputs are up-to-date.
        Link:
          Generating code
@@ -16,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:26.91
+Time Elapsed 00:00:33.52

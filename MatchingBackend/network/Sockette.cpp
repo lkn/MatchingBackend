@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <winsock2.h>
 #include "Sockette.h"
@@ -136,7 +137,10 @@ bool Sockette::Send(std::string data) {
 		std::cerr << "why you tryna send an empty string?\n";
 		return false;
 	}
-	// TODO: hack... we just add a new line since its easy for java client to receive
+	// TODO: hack... remove newlines in data sent in
+	// also.. we just add a new line since its easy for java client to receive
+	
+	data.erase(std::remove(data.begin(), data.end(), '\n'), data.end());
 	data.append("\n");
 	int sent = send(handle_, data.c_str(), data.length(), 0);
 	if (sent == SOCKET_ERROR) {

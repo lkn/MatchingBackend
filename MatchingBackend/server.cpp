@@ -57,7 +57,7 @@ string getEverything(string matchName) {
 	string query = "SELECT commenter, blurb FROM comment WHERE image_id = " + imageId;
 	rows = database->query(query.c_str());
 	if (!rows.empty()) {
-		dataToSend.append("^");
+		dataToSend.append("@");
 	}
 	for (vector<DbRow>::const_iterator rows_it = rows.begin(); rows_it != rows.end(); ) {
 		DbRow row = *rows_it;
