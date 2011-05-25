@@ -69,17 +69,21 @@ void Sockette::StartListening() {
 	listen(handle_, 5);  // TODO: make configurable
 }
 
+// first 3 bytes is header.
 // Expects that whoever is sending data is using the first 2 bytes
 // to encode how many bytes we should expect to receive.
+// next byte is the type of request
 // Whoever sent in 'data' must deallocate it (this function allocates it)
 bool Sockette::Listen(char **data) {
 	std::cout << "Listening...." << std::endl;
 	unsigned char * tmp = (unsigned char *) calloc(10, sizeof(unsigned char));
 	if (tmp == NULL) std::cerr << "calloc returned NULL";
 
+	// get expected size of data
 	short expectedSize = 0;
+	unsigned char command;
 	while (true) {
-		int n = recv(handle_, (char *) tmp, 2, 0);
+		int n = recv(handle_, (char *) tmp, 3, 0);
 		std::cout << "Received data from client!" << std::endl;
 		std::cout << "error: " << WSAGetLastError() << std::endl;
 		if (n == SOCKET_ERROR) {
@@ -87,12 +91,20 @@ bool Sockette::Listen(char **data) {
 			std::cerr << "Error getting packet size: " << WSAGetLastError() << std::endl;
 			return false;
 		}
+
+		std::cout << "header size: " << n << std::endl;
 		
 		expectedSize = tmp[0] << 8 | tmp[1];  // assumes big endian I think...
 		std::cout << "Expected size of data: " << expectedSize << std::endl;
 		if (expectedSize <= 0) {
 			std::cerr << "Something funny with client... we expect 0 bytes. Ignoring and quitting." << std::endl;
 			return false;
+		}
+
+		command = tmp[2];
+		switch (command) {
+		default:
+			std::cout << "WE GOT A COMMAND!!! " << tmp[2];
 		}
 
 		break;
