@@ -26,6 +26,19 @@ SURFMatcher *g_matcher = NULL;
 
 QueryParams g_queryParams;
 
+void StringSplit(string str, string delim, vector<string>& results) {
+	int cutAt;
+	while ((cutAt = str.find_first_of(delim)) != str.npos) {
+		if (cutAt > 0) {
+			results.push_back(str.substr(0, cutAt));
+		}
+		str = str.substr(cutAt + 1);
+	}
+	if (str.length() > 0) {
+		results.push_back(str);
+	}
+}
+
 // TODO: we want to move away from using the name
 // data sent: name#id#date#model#shutter#focal
 // TODO: send GPS
@@ -110,7 +123,7 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 		string matchName;
 		// TODO: get rid of memory leaks
 		if (clientSocket->Listen(&cmd, &dataReceived)) {
-			std::cout << "Received command: " << cmd;
+			std::cout << "Received command: " << cmd << endl;
 			switch (cmd) {
 				case 'D':
 					{
@@ -143,8 +156,14 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 					break;
 					}
 				case 'C':
-					std::cout << "TODO: comment" << std::endl;
+					{
+					string str = string(dataReceived);
+					cout << "received comment string: " << dataReceived << endl;
+					vector<string> commentVec;
+					StringSplit(str, "#", commentVec);
+					database->insertComment(commentVec.at(0), commentVec.at(1), commentVec.at(2));
 					break;
+					}
 				default:
 					std::cout << "TODO: unknown command!" << std::endl;
 					break;

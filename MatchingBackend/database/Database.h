@@ -16,6 +16,9 @@ public:
 	~Database();
 
 	vector<DbRow> query(const char* query);
+	void execute(const char* stmt);
+
+	void insertComment(const string& user, const string& blurb, const string& image_id);
 
 protected:
 	bool open(const char* filename);
