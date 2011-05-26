@@ -10,8 +10,8 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>400</width>
-			<height>300</height>
+			<width>320</width>
+			<height>240</height>
 		</image>
 		
 	</query>
@@ -26,15 +26,16 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>400</width>
-			<height>300</height>
+			<width>320</width>
+			<height>240</height>
 		</image>
 		
 		<!-- double for percentage -->
-		<match_threshold>10</match_threshold>
+		<match_threshold>20</match_threshold>
 	</library>
 	
 	<!-- if empty, then logger uses default file name ({date}.txt) -->
 	<log name="" />
-	<connection port="1111" num_clients="5" />
+	
+	<connection port="1112" num_clients="5" />
 </settings>

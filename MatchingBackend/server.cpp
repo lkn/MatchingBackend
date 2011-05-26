@@ -20,11 +20,17 @@ using namespace std;
 #define PORT 1111
 #define DEFAULT_BUFLEN 65536
 
+typedef struct {
+	int port;
+	int max_num_clients;
+} ServerParams;
+
 Database *database = NULL;
 Logger *g_logger = NULL;
 SURFMatcher *g_matcher = NULL;
 
 QueryParams g_queryParams;
+ServerParams g_serverParams;
 
 void StringSplit(string str, string delim, vector<string>& results) {
 	int cutAt;
@@ -221,6 +227,9 @@ bool parseSettingsXml(const string& settingsXmlPath, string& logName, QueryParam
 	if (name != NULL) {
 		logName = string(name);
 	}
+
+	settingsElement->FirstChildElement("connection")->QueryIntAttribute("port", &(g_serverParams.port));
+
 	return true;
 }
 
@@ -257,7 +266,7 @@ int _tmain(int argc, char *argv[]) {
 		return 0;
 	}
 	
-	Sockette *serverSock = new Sockette((u_short) PORT);
+	Sockette *serverSock = new Sockette((u_short) g_serverParams.port);
 	serverSock->StartListening();
 
 	vector<HANDLE> threads = vector<HANDLE>();
