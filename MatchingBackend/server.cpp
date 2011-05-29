@@ -153,7 +153,16 @@ DWORD WINAPI ClientLoop(LPVOID sockette) {
 					CvSeq *queryKeyPoints = 0, *queryDescriptors = 0;
 					double tt = (double) -cvGetTickCount();
 					cvExtractSURF(queryImage, 0, &queryKeyPoints, &queryDescriptors, storage, params);
-					printf("Query Descriptors %d\nQuery Extraction Time = %gm\n",
+					
+					// remove some noise
+					if (queryDescriptors == NULL || queryDescriptors->total < 50) {
+						g_logger->Log(INFO, "Skipping, %s only got %d descriptors",
+								queryName, queryDescriptors == NULL  ? 0 : queryDescriptors->total);
+						clientSocket->Send("-1");
+						break;
+					}
+					
+					g_logger->Log(INFO, "Query Descriptors %d\nQuery Extraction Time = %gm\n",
 						queryDescriptors->total, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
 					
 					matchName = g_matcher->MatchAgainstLibrary(queryName, queryImage, queryKeyPoints, queryDescriptors);
@@ -247,7 +256,7 @@ int _tmain(int argc, char *argv[]) {
 	string logName;
 	SURFMatcherParams libraryParams;
 
-	string settingsXmlPath = "settings_server.xml";
+	string settingsXmlPath = "settings-aesop.xml";
 	parseSettingsXml(settingsXmlPath, logName, g_queryParams, libraryParams);
 	g_logger = new Logger(logName);
 

@@ -96,12 +96,12 @@ def get_lib_xml_path(settings_xml_path):
 
               
 def main(args):
-  db_helper = DBHelper('kt-min.db')
+  db_helper = DBHelper('demo-aesop.db')
   db_helper.clear_tables()
   db_helper.create_tables()
 
   (exe_home, lib_xml_dir, lib_xml_name) = \
-      get_lib_xml_path('../settings_server.xml')
+      get_lib_xml_path('../settings-aesop.xml')
   db_helper.populate_from_xml(exe_home, lib_xml_dir, lib_xml_name)
 
 

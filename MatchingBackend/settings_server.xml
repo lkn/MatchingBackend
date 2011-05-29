@@ -10,14 +10,14 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>320</width>
-			<height>240</height>
+			<width>216</width>
+			<height>144</height>
 		</image>
 		
 	</query>
 	
 	<!-- config is used by the python script to populate the database -->
-	<library path="database/kt-min.db" config="data/kt_library/index-min.xml">
+	<library path="database/kt.db" config="data/kt_library/index.xml">
 		<!-- parameters to cvSurfParam -->
 		<surf>
 			<hessian_threshold>2000</hessian_threshold>
@@ -26,8 +26,8 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>320</width>
-			<height>240</height>
+			<width>534</width>
+			<height>356</height>
 		</image>
 		
 		<!-- double for percentage -->
@@ -37,5 +37,5 @@
 	<!-- if empty, then logger uses default file name ({date}.txt) -->
 	<log name="" />
 	
-	<connection port="1112" num_clients="5" />
+	<connection port="1111" num_clients="5" />
 </settings>

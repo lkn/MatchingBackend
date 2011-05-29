@@ -71,19 +71,19 @@ void Sockette::StartListening() {
 }
 
 // first 3 bytes is header.
-// Expects that whoever is sending data is using the first 2 bytes
+// Expects that whoever is sending data is using the first 4 bytes
 // to encode how many bytes we should expect to receive.
 // next byte is the type of request
 // Whoever sent in 'data' must deallocate it (this function allocates it)
 bool Sockette::Listen(unsigned char *cmd, char **data) {
 	std::cout << "Listening...." << std::endl;
-	unsigned char * tmp = (unsigned char *) calloc(3, sizeof(unsigned char));
+	unsigned char * tmp = (unsigned char *) calloc(5, sizeof(unsigned char));
 	if (tmp == NULL) std::cerr << "calloc returned NULL";
 
 	// get expected size of data
-	short expectedSize = 0;
+	int expectedSize = 0;
 	while (true) {
-		int n = recv(handle_, (char *) tmp, 3, 0);
+		int n = recv(handle_, (char *) tmp, 5, 0);
 		std::cout << "Received data from client!" << std::endl;
 		std::cout << "error: " << WSAGetLastError() << std::endl;
 		if (n == SOCKET_ERROR) {
@@ -94,14 +94,14 @@ bool Sockette::Listen(unsigned char *cmd, char **data) {
 
 		std::cout << "header size: " << n << std::endl;
 		
-		expectedSize = tmp[0] << 8 | tmp[1];  // assumes big endian I think...
+		expectedSize = tmp[0] << 24 | tmp[1] << 16 | tmp[2] << 8 | tmp[3];  // assuming big endian
 		std::cout << "Expected size of data: " << expectedSize << std::endl;
 		if (expectedSize <= 0) {
 			std::cerr << "Something funny with client... we expect 0 bytes. Ignoring and quitting." << std::endl;
 			return false;
 		}
 
-		*cmd = tmp[2];
+		*cmd = tmp[4];
 		std::cout << "cmd = " << *cmd << std::endl;
 		break;
 	}
@@ -138,7 +138,7 @@ bool Sockette::Send(std::string data) {
 		return false;
 	}
 	// TODO: hack... remove newlines in data sent in
-	// also.. we just add a new line since its easy for java client to receive
+	// also.. we just add a new line since its easy for java client since it uses in.readLine()
 	
 	data.erase(std::remove(data.begin(), data.end(), '\n'), data.end());
 	data.append("\n");

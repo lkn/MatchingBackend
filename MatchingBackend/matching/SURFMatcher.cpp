@@ -37,7 +37,7 @@ void SURFMatcher::Extract() {
 		cvExtractSURF((*refIt)->image, 0, &keyPoint, &descriptor, storage_, params);
 		refKD_.push_back(make_pair(keyPoint, descriptor));
 		logger_->Log(INFO, "\tExtracted %s with %d keypoints and %d descriptors", 
-			(*refIt)->name.c_str(), keyPoint->total, descriptor->total);
+			(*refIt)->path.c_str(), keyPoint->total, descriptor->total);
 	}
 
 	if (refKD_.size() != referenceData_.size()) {
@@ -171,32 +171,29 @@ string SURFMatcher::MatchAgainstLibrary(const char *queryImageName,
 
 // object = query
 // image = reference image
-double SURFMatcher::FlannFindPairs( const CvSeq*, const CvSeq* objectDescriptors,
-           const CvSeq*, const CvSeq* imageDescriptors, vector<int>& ptpairs ) const {
-	int length = (int)(objectDescriptors->elem_size/sizeof(float));
+double SURFMatcher::FlannFindPairs(const CvSeq*, const CvSeq* objectDescriptors,
+           const CvSeq*, const CvSeq* imageDescriptors, vector<int>& ptpairs) const {
+	int length = (int) (objectDescriptors->elem_size / sizeof(float));
 
     cv::Mat m_object(objectDescriptors->total, length, CV_32F);
 	cv::Mat m_image(imageDescriptors->total, length, CV_32F);
 
-
 	// copy descriptors
     CvSeqReader obj_reader;
 	float* obj_ptr = m_object.ptr<float>(0);
-    cvStartReadSeq( objectDescriptors, &obj_reader );
-    for(int i = 0; i < objectDescriptors->total; i++ )
-    {
-        const float* descriptor = (const float*)obj_reader.ptr;
-        CV_NEXT_SEQ_ELEM( obj_reader.seq->elem_size, obj_reader );
+    cvStartReadSeq(objectDescriptors, &obj_reader);
+    for (int i = 0; i < objectDescriptors->total; i++) {
+        const float* descriptor = (const float*) obj_reader.ptr;
+        CV_NEXT_SEQ_ELEM(obj_reader.seq->elem_size, obj_reader);
         memcpy(obj_ptr, descriptor, length*sizeof(float));
         obj_ptr += length;
     }
     CvSeqReader img_reader;
 	float* img_ptr = m_image.ptr<float>(0);
-    cvStartReadSeq( imageDescriptors, &img_reader );
-    for(int i = 0; i < imageDescriptors->total; i++ )
-    {
-        const float* descriptor = (const float*)img_reader.ptr;
-        CV_NEXT_SEQ_ELEM( img_reader.seq->elem_size, img_reader );
+    cvStartReadSeq(imageDescriptors, &img_reader);
+    for (int i = 0; i < imageDescriptors->total; i++) {
+        const float* descriptor = (const float*) img_reader.ptr;
+        CV_NEXT_SEQ_ELEM(img_reader.seq->elem_size, img_reader);
         memcpy(img_ptr, descriptor, length*sizeof(float));
         img_ptr += length;
     }
@@ -204,14 +201,14 @@ double SURFMatcher::FlannFindPairs( const CvSeq*, const CvSeq* objectDescriptors
     // find nearest neighbors using FLANN
     cv::Mat m_indices(objectDescriptors->total, 2, CV_32S);
     cv::Mat m_dists(objectDescriptors->total, 2, CV_32F);
-    cv::flann::Index flann_index(m_image, cv::flann::KDTreeIndexParams(4));  // using 4 randomized kdtrees
-    flann_index.knnSearch(m_object, m_indices, m_dists, 2, cv::flann::SearchParams(64) ); // maximum number of leafs checked
+    cv::flann::Index flann_index(m_image, cv::flann::KDTreeIndexParams(4));              // using 4 randomized kdtrees
+    flann_index.knnSearch(m_object, m_indices, m_dists, 2, cv::flann::SearchParams(64)); // maximum number of leafs checked
 
 	double numMatched = 0.f;
     int* indices_ptr = m_indices.ptr<int>(0);
     float* dists_ptr = m_dists.ptr<float>(0);
-    for (int i=0;i<m_indices.rows;++i) {
-    	if (dists_ptr[2*i]<0.6*dists_ptr[2*i+1]) {
+    for (int i = 0; i < m_indices.rows; ++i) {
+    	if (dists_ptr[2*i] < 0.6*dists_ptr[2*i+1]) {
     		ptpairs.push_back(i);
     		ptpairs.push_back(indices_ptr[2*i]);
 			++numMatched;
