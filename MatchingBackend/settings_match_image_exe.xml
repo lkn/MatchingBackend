@@ -1,7 +1,7 @@
 <!-- sorry but I only handle landscape images =] -->
 
 <settings>
-	<query path="data/kt_queries/images.txt">
+	<query path="data/320x240/images.txt">
 		<!-- parameters to cvSurfParam -->
 		<surf>
 			<hessian_threshold>2000</hessian_threshold>
@@ -10,13 +10,13 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>160</width>
-			<height>120</height>
+			<width></width>
+			<height></height>
 		</image>
 		
 	</query>
 	
-	<library path="data/kt_library/index.xml">
+	<library path="data/demo-aesop/index.xml">
 		<!-- parameters to cvSurfParam -->
 		<surf>
 			<hessian_threshold>2000</hessian_threshold>
@@ -25,14 +25,14 @@
 		
 		<!-- pixel sizes -->
 		<image>
-			<width>160</width>
-			<height>120</height>
+			<width>320</width>
+			<height>240</height>
 		</image>
 		
 		<!-- double for percentage -->
-		<match_threshold>10</match_threshold>
+		<match_threshold>20</match_threshold>
 	</library>
 	
 	<!-- if empty, then logger uses default file name ({date}.txt) -->
-	<log name="" />
+	<log name="LOG-demo-aesop.txt" />
 </settings>

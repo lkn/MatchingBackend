@@ -17,9 +17,6 @@
 
 using namespace std;
 
-#define PORT 1111
-#define DEFAULT_BUFLEN 65536
-
 typedef struct {
 	int port;
 	int max_num_clients;
@@ -242,17 +239,16 @@ bool parseSettingsXml(const string& settingsXmlPath, string& logName, QueryParam
 	return true;
 }
 
-
-int _tmain(int argc, char *argv[]) {
 /*
-	if (argc < 2) {
-		cerr << "Need to specify settings xml path!" << endl;
-		system("PAUSE");
-		return 0;
-	}
+int _tmain(int argc, char *argv[]) {
+
+//	if (argc < 2) {
+//		cerr << "Need to specify settings xml path!" << endl;
+//		system("PAUSE");
+//		return 0;
+//	}
 	
 	cout << "Settings path: " << argv[1] << endl;
-*/
 	string logName;
 	SURFMatcherParams libraryParams;
 
@@ -314,3 +310,4 @@ int _tmain(int argc, char *argv[]) {
 	system("PAUSE");
 	return 0;
 }
+*/

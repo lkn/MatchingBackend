@@ -28,7 +28,7 @@ using namespace std;
 
 // TODO: change the fact that query images must be smaller than training image
 const string settingsFilename = "settings_match_image_exe.xml";
-
+const string dirToSaveResImages = "data/results";  // TODO: put in xml!
 
 bool readQuery(const string& queryImageName, IplImage **queryImage, int width, int height) {
     cout << "< Reading the images..." << endl;
@@ -39,9 +39,12 @@ bool readQuery(const string& queryImageName, IplImage **queryImage, int width, i
         return false;
     }
 
-	*queryImage = resizeImage(tmp, width, height, true);
-
-    cvReleaseImage(&tmp);
+	if (width != 0 && height != 0) {  // no resizing
+		*queryImage = resizeImage(tmp, width, height, true);
+    	cvReleaseImage(&tmp);
+	} else {
+		*queryImage = tmp;
+	}
 
     cout << ">" << endl;
 
@@ -88,8 +91,10 @@ bool readSettingsFile(const string& settingsFilename, string& logName, string& f
 	queryParams.extended_parameter = atoi(surfElement->FirstChildElement("extended_parameter")->FirstChild()->ToText()->Value());
 
 	TiXmlElement *imageElement = queryElement->FirstChildElement("image");
-	queryParams.image_width = atoi(imageElement->FirstChildElement("width")->FirstChild()->ToText()->Value());
-	queryParams.image_height = atoi(imageElement->FirstChildElement("height")->FirstChild()->ToText()->Value());
+	TiXmlElement *sizeElement = imageElement->FirstChildElement("width");
+	queryParams.image_width = sizeElement->NoChildren() ? 0 : atoi(sizeElement->FirstChild()->ToText()->Value());
+	sizeElement = imageElement->FirstChildElement("height");
+	queryParams.image_height = sizeElement->NoChildren() ? 0 : atoi(sizeElement->FirstChild()->ToText()->Value());
 
 	TiXmlElement *libraryElement = settingsElement->FirstChildElement("library");
 	if ((tmp = libraryElement->Attribute("path")) == NULL) {
@@ -115,7 +120,6 @@ bool readSettingsFile(const string& settingsFilename, string& logName, string& f
 	return true;
 }
 
-/*
 int _tmain(int argc, char** argv) {
 
 	SURFMatcherParams libraryParams;
@@ -133,7 +137,7 @@ int _tmain(int argc, char** argv) {
 	vector<string> queryImageFilenames;
 	readQueryFilenames(fileWithQueryImages, queryImageFilenames);
 
-	SURFMatcher surfMatcher(&logger, libraryParams);
+	SURFMatcher surfMatcher(&logger, libraryParams, true);
 	surfMatcher.BuildFromXml(fileWithLibraryImages);
 
 	CvMemStorage *storage = cvCreateMemStorage(0);
@@ -154,13 +158,11 @@ int _tmain(int argc, char** argv) {
 
 		
 		string res = surfMatcher.MatchAgainstLibrary(it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		//if (!res.empty()) {
-		//	surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		//}
+		if (!res.empty() && res.compare("-1") != 0) {
+			surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
+		}
 
-		// TOADD
 		cvReleaseImage(&queryImage);
 	}
 	return 0;
 }
-*/

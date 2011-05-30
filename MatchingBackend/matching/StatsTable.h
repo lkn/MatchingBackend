@@ -15,7 +15,8 @@ protected:
 	void EndTable();
 
 private:
-	std::ofstream *file_;
+	std::ofstream *html_file_;
+	std::ofstream *csv_file_;
 };
 
 #endif

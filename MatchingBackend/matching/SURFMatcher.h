@@ -4,6 +4,8 @@
 #include <opencv/cv.h>
 #include "../support/Logger.h"
 
+class StatsTable;
+
 // <KeyPoints, Descriptors>
 typedef pair<CvSeq *, CvSeq *> SURFFeatures_t;
 
@@ -46,7 +48,7 @@ typedef struct {
 
 class SURFMatcher {
 public:
-	SURFMatcher(Logger *logger, const SURFMatcherParams& params);
+	SURFMatcher(Logger *logger, const SURFMatcherParams& params, bool write_stats = false);
 	~SURFMatcher();
 
 	int BuildFromXml(std::string fileName);
@@ -97,6 +99,7 @@ private:
 	Logger *logger_;
 	SURFMatcherParams params_;
 	CvMemStorage *storage_;
+	StatsTable *stats_table_;
 };
 
 #endif

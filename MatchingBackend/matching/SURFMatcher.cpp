@@ -7,13 +7,20 @@
 
 #include "../support/util.h"
 #include "../support/cv_helper.h"
+
 #include "../thirdparty/tinyxml/tinyxml.h"
 
+#include "StatsTable.h"
 #include "SURFMatcher.h"
 
-SURFMatcher::SURFMatcher(Logger *logger, const SURFMatcherParams& params) : logger_(logger) {
+SURFMatcher::SURFMatcher(Logger *logger, const SURFMatcherParams& params, bool write_stats) : logger_(logger) {
 	memcpy(&params_, &params, sizeof(SURFMatcherParams));
 	storage_ = cvCreateMemStorage(0);
+	stats_table_ = NULL;
+
+	if (write_stats) {
+		stats_table_ = new StatsTable();
+	}
 }
 
 SURFMatcher::~SURFMatcher() {
@@ -22,8 +29,13 @@ SURFMatcher::~SURFMatcher() {
 		cvReleaseImage(&((*it)->image));
 		delete *it;
 	}
+	
 	if (storage_ != NULL) {
 		cvReleaseMemStorage(&storage_);
+	}
+
+	if (stats_table_) {
+		delete stats_table_;
 	}
 }
 
@@ -155,17 +167,24 @@ string SURFMatcher::MatchAgainstLibrary(const char *queryImageName,
 		}
 	}
 	
-	logger_->Log(INFO, "Match Time for %s = %gm",
-		queryImageName, ((tt + cvGetTickCount()) / cvGetTickFrequency()*1000.));
+	// time in secomds
+	double match_time = (tt + cvGetTickCount()) / (cvGetTickFrequency() * 1e6);
+	logger_->Log(INFO, "Match Time for %s = %g s", queryImageName, match_time);
 	
 
 	if (indexBestMatch >= 0 && indexBestMatch < referenceData_.size() && bestPercentage >= params_.match_threshold) {
 		logger_->Log(INFO, "%s was best matched with %s\n",
 			queryImageName, referenceData_[indexBestMatch]->name.c_str());
+		if (stats_table_) {
+			stats_table_->WriteRow(queryImageName, bestPercentage, referenceData_[indexBestMatch]->name, match_time);
+		}
 		return referenceData_[indexBestMatch]->name;
 	} 
 
 	logger_->Log(INFO, "Unable to find a match for %s\n", queryImageName);
+	if (stats_table_) {
+		stats_table_->WriteRow(queryImageName, bestPercentage, "NONE", match_time);
+	}
 	return "-1";
 }
 

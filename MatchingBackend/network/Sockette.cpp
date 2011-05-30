@@ -109,7 +109,7 @@ bool Sockette::Listen(unsigned char *cmd, char **data) {
 	*data = new char[expectedSize];  // specifically this to keep OpenCV happy
 	int numBytesRead = 0;
 	while (numBytesRead < expectedSize) {
-		int r = recv(handle_, (char *)(*data + numBytesRead), expectedSize - numBytesRead, 0);
+		int r = recv(handle_, (char *) (*data + numBytesRead), expectedSize - numBytesRead, 0);
 
 		if (r == SOCKET_ERROR) {
 			if (WSAGetLastError() == WSAEWOULDBLOCK) continue;

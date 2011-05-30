@@ -31,7 +31,7 @@
 		</image>
 		
 		<!-- double for percentage -->
-		<match_threshold>20</match_threshold>
+		<match_threshold>15</match_threshold>
 	</library>
 	
 	<!-- if empty, then logger uses default file name ({date}.txt) -->
