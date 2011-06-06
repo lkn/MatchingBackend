@@ -1,0 +1,6 @@
+A visual studio c++ project run on windows 7 with opencv 2.2
+
+To run the server, comment out the main method in match_image.cpp
+To run image matching experiments, comment out the main method in server.cpp
+
+backend-linux.tgz is the code that runs on linux.
