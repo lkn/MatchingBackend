@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+The paths should be defined relative to this index.xml file.
+-->
+<images>
+	<image name="I Amsterdam" path="amsterdam.jpg">
+	Famous amsterdam letters. Very pretty.
+	</image>
+	
+	<image name="Basilica 2" path="basilica_2.jpg">
+	The Latin word basilica (derived from Greek, βασιλική στοά, Royal Stoa, the tribunal chamber of a king), was originally used to describe a Roman public building, usually located in the forum of a Roman town. Public basilicas began to appear in Hellenistic cities in the 2nd century BC.
+	</image>
+
+	<image name="Granada" path="granada.jpg">
+	The city of Granada is placed at the foot of the Sierra Nevada mountains, at the confluence of three rivers, Beiro, Darro and Genil, at an elevation of 738 metres above sea level yet only one hour from the Mediterranean coast, the Costa Tropical. Nearby is the Sierra Nevada Ski Station, where the FIS Alpine World Ski Championships 1996 were held.
+	</image>
+	
+	<image name="Guiness Factory 2" path="guiness_factory_2.jpg">
+	St. James's Gate Brewery (Irish: Grúdlann Gheata Shan Séamuis) is a brewery founded in 1759 in Dublin, Ireland by Arthur Guinness. The company is now a part of Diageo, a company formed via the merger of Guinness and Grand Metropolitan in 1997. The main product produced at the brewery is Guinness Draft.
+
+Leased for 9,000 years in 1759 by Arthur Guinness at £45 per year, St. James's Gate has been the home of Guinness ever since. It became the largest brewery in Ireland in 1838, and was the largest in the world in 1914, covering 64 acres. Although no longer the largest brewery in the world, it is still the largest brewer of stout in the world. During the 19th and early 20th centuries, the brewery owned most of the buildings in the surrounding area, including many streets of housing for brewery employees, and offices associated with the brewery. The brewery also made all of its own power using its own power plant.
+	</image>
+		
+	<image name="Lisbon 2" path="lisbon_2.jpg">
+	Lisbon is the capital city and largest city of Portugal, with a population of 564,657 within its administrative limits[1] on a land area of 84.8 km2 (33 sq mi). The urban area of Lisbon extends beyond the administrative city limits with a population of 3 million[2] on a area of 958 km2 (370 sq mi),[2] it is the 9th most populous urban area in the European Union. About 2,831,000[3][4] people live in the Lisbon Metropolitan Area (which represents approximately 27% of the population of the country). Lisbon is the westernmost large city located in Europe, as well as its westernmost capital city and the only one along the Atlantic coast. It lies in the western Iberian Peninsula on the Atlantic Ocean and the Tagus River.
+	</image>
+		
+	<image name="Piccadilly" path="london_3.jpg">
+	Piccadilly is a major street in central London, running from Hyde Park Corner in the west to Piccadilly Circus in the east. It is completely within the city of Westminster. The street is part of the A4 road, London's second most important western artery. St. James's lies to the south of the eastern section of the street, while the western section is built up only on the northern side and overlooks Green Park. The area to the north is Mayfair.
+
+It is the location of Fortnum and Mason, the Royal Academy, The Ritz Hotel and Hatchards book shop. Simpsons, once amongst the United Kingdom's leading clothing stores, opened on Piccadilly in the 1930s. The store closed in 1999 and the site is now the flagship shop of the booksellers Waterstone's.
+It is the location of Fortnum and Mason, the Royal Academy, The Ritz Hotel and Hatchards book shop. Simpsons, once amongst the United Kingdom's leading clothing stores, opened on Piccadilly in the 1930s. The store closed in 1999 and the site is now the flagship shop of the booksellers Waterstone's.
+	</image>
+		
+	<image name="Telephone Booths" path="london_4.jpg">
+	Cool telephone booths from Astor Victoria.
+	</image>
+		
+	<image name="The Latin Quarter" path="paris_1.jpg">
+	The Latin Quarter of Paris (French: Quartier latin, IPA: [kaʁtje latɛ̃]) is an area in the 5th and parts of the 6th arrondissement of Paris. It is situated on the left bank of the River Seine, around the Sorbonne.
+
+Known for its student life, lively atmosphere and bistros, the Latin Quarter is the home to a number of higher education establishments besides the university itself, such as the École Normale Supérieure, the École des Mines de Paris (a ParisTech institute), the Schola Cantorum, and the Jussieu university campus. Other establishments such as the École Polytechnique (also a ParisTech engineering school) have relocated in recent times to more spacious settings.
+La Sorbonne
+
+The area gets its name from the Latin language, which was once widely spoken in and around the University since Latin was the international language of learning in the Middle Ages.
+	</image>
+
+	<image name="Montmartre" path="paris_3.jpg">
+	Montmartre is a hill (the butte Montmartre) which is 130 metres high, giving its name to the surrounding district, in the north of Paris in the 18th arrondissement, a part of the Right Bank. Montmartre is primarily known for the white-domed Basilica of the Sacré Cœur on its summit and as a nightclub district. The other, older, church on the hill is Saint Pierre de Montmartre, which claims to be the location at which the Jesuit order of priests was founded. Many artists had studios or worked around the community of Montmartre such as Salvador Dalí, Amedeo Modigliani, Claude Monet, Pablo Picasso and Vincent van Gogh. Montmartre is also the setting for several hit films. This site is served by metro line 2 stations of Anvers, Pigalle and Blanche and the line 12 stations of Pigalle, Abbesses, Lamarck - Caulaincourt and Jules Joffrin.
+	</image>
+
+	<image name="Plaza de America" path="plaza_de_americas.jpg">
+	In 1929 Seville hosted the Ibero-American Exposition World's Fair, located in the celebrated Maria Luisa Park (Parque de Maria Luisa). It was designed by Jean-Claude Nicolas Forestier.[2] The entire southern end of the city was redeveloped into an expanse of gardens and grand boulevards. The centre of it is Parque de Maria Luisa, a 'Moorish paradisical style' with a half mile of: tiled fountains, pavilions, walls, ponds, benches, and exhedras; lush plantings of palms, orange trees, Mediterranean pines, and stylized flower beds; and with vine hidden bowers. Numerous buildings were constructed in it for the exhibition. [3]
+	</image>
+
+	<image name="Inside Plaza de Toros de Ronda" path="plaza_de_torros.jpg">
+	The Plaza de Toros ("bullring") in Ronda, Málaga is one of the oldest operational bullrings in Spain.[1] The arena has a diameter of 66 metres (217 ft), surrounded by a passage formed by two rings of stone. There are two layers of seating, each with five raised rows and 136 pillars that make up 68 arches. The Royal Box has a sloping roof covered in Arabic tiles.
+	</image>
+
+	<image name="Trinity College" path="trinity_college.jpg">
+	Trinity College, Dublin (TCD; Irish: Coláiste na Tríonóide, Baile Átha Cliath), formally known as the College of the Holy and Undivided Trinity of Queen Elizabeth near Dublin,[3] was founded in 1592 by letters patent from Queen Elizabeth I as the "mother of a university",[Note 1] and is the only constituent college of the University of Dublin. Located in Dublin, Ireland, it is Ireland's oldest university.
+
+Originally established outside the city walls of Dublin in the buildings of the dissolved Augustinian monastery of All Hallows, Trinity was set up in part to consolidate the rule of the Tudor monarchy in Ireland, and it was seen as the university of the Protestant Ascendancy for much of its history; although Roman Catholics and Dissenters had been permitted to enter as early as 1793,[4] certain restrictions on their membership of the college remained until 1873 (professorships, fellowships and scholarships were reserved for Protestants),[5] and the Catholic Church in Ireland forbade its adherents, without permission from their bishop, from attending until 1970. Women were first admitted to the college as full members in 1904.
+	</image>
+	
+	<image name="Inside Vatican Musuem" path="vatican_2.jpg">
+	The Vatican Museums (Italian: Musei Vaticani), in Viale Vaticano in Rome, inside the Vatican City, are among the greatest museums in the world, since they display works from the immense collection built up by the Roman Catholic Church throughout the centuries, including some of the most renowned classical sculptures and most important masterpieces of Renaissance art in the world.
+
+Pope Julius II founded the museums in the early 16th century. The Sistine Chapel and the Stanze della Segnatura decorated by Raphael are on the visitor route through the Vatican Museums. They were visited by 4,310,083 people in the year 2007.[1]
+	</image>
+	
+	<image name="Wellington Arch" path="wellington_arch.jpg">
+	Wellington Arch, also known as Constitution Arch or (originally) the Green Park Arch, is a triumphal arch located to the south of Hyde Park in central London and at the north western corner of Green Park (although it is now isolated on a traffic island). The arch, and Marble Arch to the north of Hyde Park, were both planned in 1825 by George IV to commemorate Britain's victories in the Napoleonic Wars. The Wellington Arch was also conceived as an outer gateway to Constitution Hill and therefore a grand entrance into central London from the west. The presence of a turnpike gate at this point had led, in the 18th century, to a strong perception that this was the beginning of London (reflected in the nickname for Apsley House as "No 1, London") and the arch was intended to reflect the importance of the position.
+
+The Wellington Arch was built between 1826-1830 to a design by Decimus Burton. Much of the intended exterior ornamentation was omitted as a cost-saving exercise after the King's overspending on the refurbishment of Buckingham Palace, which was underway at the same time. The arch originally stood almost directly opposite Apsley House, a short distance from, and at a right-angles to, its present location. It faced the screen, also designed by Decimus Burton, and still in its original location, which forms the Hyde Park Corner entrance to Hyde Park. It was intended to form part of a grand ceremonial route towards Buckingham Palace.
+	</image>
+	
+	<image name="Yorkshire" path="yorkshire_2.jpg">
+	Yorkshire is a historic county of northern England and the largest in the United Kingdom.[2] Because of its great size in comparison to other English counties, functions have been increasingly undertaken over time by its subdivisions, which have also been subject to periodic reform. Throughout these changes, Yorkshire has continued to be recognised as a geographical territory and cultural region.[3][4] The name is familiar and well understood across the United Kingdom and is in common use in the media and the military,[5] and also features in the titles of current areas of civil administration, such as Yorkshire and the Humber and West Yorkshire.
+
+Within the borders of the historic county of Yorkshire are areas which are widely considered to be among the greenest in England, due to the vast stretches of unspoiled countryside in the Yorkshire Dales and North York Moors and to the open aspect of some of the major cities.[6][7] Yorkshire has sometimes been nicknamed God's Own County.[4][8] The emblem of Yorkshire is the white rose of the English royal House of York, and the most commonly used flag representative of Yorkshire is the White Rose on a dark blue background,[9] which after years of use, was recognised by the Flag Institute on 29 July 2008.[10] Yorkshire Day, held on 1 August, is a celebration of the general culture of Yorkshire, ranging from its history to its own dialect.[11]
+	</image>
+
+</images>

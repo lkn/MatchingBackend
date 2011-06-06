@@ -158,9 +158,9 @@ int _tmain(int argc, char** argv) {
 
 		
 		string res = surfMatcher.MatchAgainstLibrary(it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		if (!res.empty() && res.compare("-1") != 0) {
-			surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
-		}
+		//if (!res.empty() && res.compare("-1") != 0) {
+		//	surfMatcher.Visualize(dirToSaveResImages, it->c_str(), queryImage, queryKeyPoints, queryDescriptors);
+		//}
 
 		cvReleaseImage(&queryImage);
 	}

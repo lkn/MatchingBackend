@@ -158,8 +158,8 @@ string SURFMatcher::MatchAgainstLibrary(const char *queryImageName,
 		matchPercentage = FlannFindPairs(queryKeyPoints,
 			queryDescriptors, features.first, features.second, ptPairs);
 
-		logger_->Log(VERBOSE, "\t%s matched %2.2f%% with %s",
-			queryImageName, matchPercentage, referenceData_[i]->name.c_str());
+		//logger_->Log(VERBOSE, "\t%s matched %2.2f%% with %s",
+		//	queryImageName, matchPercentage, referenceData_[i]->name.c_str());
 
 		if (matchPercentage > bestPercentage) {
 			indexBestMatch = i;

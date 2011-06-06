@@ -1,38 +1,38 @@
 <!-- sorry but I only handle landscape images =] -->
 
 <settings>
-	<query path="data/320x240/images.txt">
+	<query path="data/demo-aesop-square-queries-320x240/images.txt">
 		<!-- parameters to cvSurfParam -->
 		<surf>
-			<hessian_threshold>2000</hessian_threshold>
+			<hessian_threshold>1000</hessian_threshold>
 			<extended_parameter>0</extended_parameter>
 		</surf>
 		
-		<!-- pixel sizes -->
-		<image>
-			<width></width>
-			<height></height>
-		</image>
-		
-	</query>
-	
-	<library path="data/demo-aesop/index.xml">
-		<!-- parameters to cvSurfParam -->
-		<surf>
-			<hessian_threshold>2000</hessian_threshold>
-			<extended_parameter>0</extended_parameter>
-		</surf>
-		
-		<!-- pixel sizes -->
+		<!-- pixel sizes (if empty, use original image size) -->
 		<image>
 			<width>320</width>
 			<height>240</height>
 		</image>
 		
+	</query>
+	
+	<library path="data/demo-aesop-square/index.xml">
+		<!-- parameters to cvSurfParam -->
+		<surf>
+			<hessian_threshold>1000</hessian_threshold>
+			<extended_parameter>0</extended_parameter>
+		</surf>
+		
+		<!-- pixel sizes -->
+		<image>
+			<width>300</width>
+			<height>300</height>
+		</image>
+		
 		<!-- double for percentage -->
-		<match_threshold>20</match_threshold>
+		<match_threshold>15</match_threshold>
 	</library>
 	
 	<!-- if empty, then logger uses default file name ({date}.txt) -->
-	<log name="LOG-demo-aesop.txt" />
+	<log name="" />
 </settings>

@@ -96,7 +96,7 @@ def get_lib_xml_path(settings_xml_path):
 
               
 def main(args):
-  db_helper = DBHelper('demo-aesop.db')
+  db_helper = DBHelper('demo-aesop-squre.db')
   db_helper.clear_tables()
   db_helper.create_tables()
 
